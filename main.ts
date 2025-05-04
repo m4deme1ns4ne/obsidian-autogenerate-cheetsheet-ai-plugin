@@ -177,25 +177,106 @@ class EditCheatsheetModal extends Modal {
   onOpen() {
     const { contentEl } = this;
 
-    // Увеличиваем размер модального окна
+    // Увеличиваем размер модального окна и улучшаем стиль
     this.modalEl.style.width = "90vw";
     this.modalEl.style.height = "90vh";
     this.modalEl.style.maxWidth = "1500px";
+
+    // Улучшаем стиль модального окна
+    this.modalEl.addClass("stylish-modal");
+
+    // Добавляем CSS стили для нового дизайна
+    const styleEl = document.createElement("style");
+    styleEl.textContent = `
+      .stylish-modal {
+        border: none !important;
+        border-radius: 12px !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+        background-color: var(--background-primary) !important;
+      }
+      
+      .stylish-modal .modal-close-button {
+        color: var(--text-normal) !important;
+        top: 14px !important;
+        right: 14px !important;
+      }
+      
+      .stylish-modal .modal-content {
+        padding: 0 !important;
+      }
+      
+      .editor-preview-split {
+        border-radius: 8px !important;
+        overflow: hidden !important;
+      }
+      
+      .editor-panel, .preview-panel {
+        background-color: var(--background-secondary) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+      }
+      
+      .preview-panel {
+        background-color: var(--background-secondary-alt) !important;
+      }
+      
+      .panel-header {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: var(--text-normal) !important;
+        padding: 12px !important;
+        margin: 0 !important;
+        background-color: var(--background-secondary-alt) !important;
+        border-bottom: 1px solid var(--background-modifier-border) !important;
+        border-radius: 8px 8px 0 0 !important;
+      }
+      
+      .stylish-modal button {
+        background-color: var(--interactive-accent) !important;
+        color: var(--text-on-accent) !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 8px 16px !important;
+        font-weight: 600 !important;
+        transition: background-color 0.2s ease !important;
+      }
+      
+      .stylish-modal button:hover {
+        background-color: var(--interactive-accent-hover) !important;
+      }
+      
+      .stylish-textarea {
+        border: none !important;
+        background-color: var(--background-primary) !important;
+        resize: none !important;
+        font-family: var(--font-monospace) !important;
+        padding: 12px !important;
+        border-radius: 0 0 8px 8px !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
 
     // Создаем контейнер для содержимого
     const container = contentEl.createDiv({
       attr: {
         style:
-          "display: flex; flex-direction: column; width: 100%; height: 100%;",
+          "display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px;",
       },
     });
 
-    container.createEl("h2", { text: "Edit Cheatsheet" });
+    container.createEl("h2", {
+      text: "Edit Cheatsheet",
+      attr: {
+        style:
+          "margin: 0 0 20px 0; font-size: 24px; color: var(--text-normal);",
+      },
+    });
 
     // Создаем контейнер с разделением на две части
     const splitContainer = container.createDiv({
       attr: {
-        style: "display: flex; width: 100%; height: 100%; gap: 10px;",
+        style: "display: flex; width: 100%; height: 100%; gap: 20px;",
+        class: "editor-preview-split",
       },
     });
 
@@ -203,31 +284,40 @@ class EditCheatsheetModal extends Modal {
     const editorContainer = splitContainer.createDiv({
       attr: {
         style: "flex: 1; display: flex; flex-direction: column;",
+        class: "editor-panel",
       },
     });
 
     // Правая панель для предпросмотра
     const previewContainer = splitContainer.createDiv({
       attr: {
-        style:
-          "flex: 1; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; overflow: auto;",
+        style: "flex: 1; display: flex; flex-direction: column;",
+        class: "preview-panel",
       },
     });
 
     // Добавляем заголовки для каждой панели
     editorContainer.createEl("h3", {
       text: "Редактор",
-      attr: { style: "margin: 0 0 10px 0;" },
+      attr: {
+        style: "margin: 0;",
+        class: "panel-header",
+      },
     });
+
     previewContainer.createEl("h3", {
       text: "Предпросмотр",
-      attr: { style: "margin: 0 0 10px 0;" },
+      attr: {
+        style: "margin: 0;",
+        class: "panel-header",
+      },
     });
 
     // Создаем текстовое поле в левой панели
     this.textarea = editorContainer.createEl("textarea", {
       attr: {
-        style: "width: 100%; height: 100%; margin: 0; resize: none;",
+        style: "width: 100%; height: 100%; margin: 0;",
+        class: "stylish-textarea",
       },
     }) as HTMLTextAreaElement;
     this.textarea.value = this.content;
@@ -235,7 +325,7 @@ class EditCheatsheetModal extends Modal {
     // Создаем область предпросмотра в правой панели
     this.previewEl = previewContainer.createDiv({
       attr: {
-        style: "height: 100%; padding: 10px; overflow-y: auto;",
+        style: "height: 100%; padding: 20px; overflow-y: auto;",
       },
     });
 
@@ -250,12 +340,11 @@ class EditCheatsheetModal extends Modal {
     // Кнопка сохранения
     const buttonContainer = contentEl.createDiv({
       attr: {
-        style: "display: flex; justify-content: flex-end; margin-top: 10px;",
+        style: "display: flex; justify-content: flex-end; margin-top: 20px;",
       },
     });
 
     const button = buttonContainer.createEl("button", { text: "Save" });
-    button.style.marginTop = "10px";
     button.addEventListener("click", () => {
       this.onSubmit(this.textarea.value);
       this.close();
@@ -275,6 +364,12 @@ class EditCheatsheetModal extends Modal {
   onClose() {
     const { contentEl } = this;
     contentEl.empty();
+
+    // Удаляем стили при закрытии
+    const styleEl = document.querySelector("style:contains(.stylish-modal)");
+    if (styleEl) {
+      styleEl.remove();
+    }
   }
 }
 
