@@ -188,7 +188,9 @@ def main() -> None:
             
             # Если есть второй аргумент, значит это отредактированный контент
             if len(sys.argv) > 2:
-                content = sys.argv[2]
+                file_path = sys.argv[2]
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
                 save_to_obsidian(filename=topic, content=content)
                 return
         else:

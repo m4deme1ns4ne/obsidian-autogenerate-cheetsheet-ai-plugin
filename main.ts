@@ -9,6 +9,9 @@ import {
 } from "obsidian";
 import { exec } from "child_process";
 import { promisify } from "util";
+import { writeFileSync } from "fs";
+import { tmpdir } from "os";
+import { join } from "path";
 
 const execPromise = promisify(exec);
 
@@ -77,7 +80,9 @@ export default class CheatsheetGeneratorPlugin extends Plugin {
 
     try {
       console.log("Saving cheatsheet for topic:", topic);
-      const command = `cd "/Users/aleksandrvolzanin/Machine learning/.obsidian/plugins/extension_ai_obsidian" && source ".venv/bin/activate" && python3 main.py "${topic}" "${content}"`;
+      const tmpFilePath = join(tmpdir(), `cheatsheet_${Date.now()}.md`);
+      writeFileSync(tmpFilePath, content, "utf-8");
+      const command = `cd "/Users/aleksandrvolzanin/Machine learning/.obsidian/plugins/extension_ai_obsidian" && source ".venv/bin/activate" && python3 main.py "${topic}" "${tmpFilePath}"`;
       console.log("Executing save command:", command);
 
       const { stdout, stderr } = await execPromise(command);
