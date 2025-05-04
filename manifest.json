@@ -1,0 +1,9 @@
+{
+  "id": "obsidian-cheatsheet-generator",
+  "name": "Cheatsheet Generator",
+  "version": "0.0.1",
+  "minAppVersion": "0.15.0",
+  "description": "A plugin to generate cheatsheets with AI in Obsidian.",
+  "author": "Your Name",
+  "isDesktopOnly": true
+}

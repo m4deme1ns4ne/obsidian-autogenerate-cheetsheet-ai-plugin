@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "lib": ["es2018", "dom"],
+    "module": "commonjs",
+    "target": "es2018",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "obsidian": ["node_modules/obsidian"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}
