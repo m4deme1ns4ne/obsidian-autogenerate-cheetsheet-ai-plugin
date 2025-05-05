@@ -11,7 +11,7 @@ load_dotenv()
 config = Config(
     LLM_API_KEY=os.getenv("LLM_API_KEY", ""),
     OBSIDIAN_VAULT_PATH=os.getenv("OBSIDIAN_VAULT_PATH", ""),
-    MAIN_PROMT=MAIN_PROMT
+    MAIN_PROMT=MAIN_PROMT,
 )
 
 
@@ -68,7 +68,6 @@ def main() -> None:
                 content = f.read()
             save_to_obsidian(filename=topic, content=content)
             return
-
 
         content = generate_cheatsheet(topic)
         content = fix_latex_blocks(content)
