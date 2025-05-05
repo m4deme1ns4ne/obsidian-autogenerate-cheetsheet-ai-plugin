@@ -29,7 +29,7 @@
 # Путь до папки AI CHEATSHEET
 OBSIDIAN_VAULT_PATH=.../NAME_YOUR_OBSIDIAN_VALUT/AI CHEATSHEET
 
-# LLM API TOKEN. Я использую [openrouter](https://openrouter.ai/)
+# LLM API TOKEN. Нужно использовать https://openrouter.ai/
 LLM_API_KEY=
 ```
 
