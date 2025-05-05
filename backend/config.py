@@ -7,7 +7,8 @@ from backend.promts import DEFAULT_PROMPT
 class Config:
     LLM_API_KEY: str
     OBSIDIAN_VAULT_PATH: str
-    MAIN_PROMT: str
+    LLM_MODEL: str = "deepseek/deepseek-chat:free"
+    MAIN_PROMT: str = DEFAULT_PROMPT
 
     def __post_init__(self):
         if not self.LLM_API_KEY:
@@ -19,6 +20,9 @@ class Config:
             raise ValueError(f"❌ Путь {self.OBSIDIAN_VAULT_PATH} не существует")
         if not self.MAIN_PROMT:
             print(
-                "Предупреждение: Нету важной переменной MAIN_PROMT, Вместо этого будет послан стандартный промт"
+                "Предупреждение: Нету важной переменной MAIN_PROMT, вместо нее будет использоваться стандартный промт"
             )
-            MAIN_PROMT = DEFAULT_PROMPT
+        if not self.LLM_MODEL:
+            print(
+                "Предупреждение: Нету важной переменной LLM_MODEL, вместо нее будет использоваться стандартная модель deepseek/deepseek-chat:free"
+            )

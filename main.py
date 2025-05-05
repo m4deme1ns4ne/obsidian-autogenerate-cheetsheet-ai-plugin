@@ -11,7 +11,7 @@ load_dotenv()
 config = Config(
     LLM_API_KEY=os.getenv("LLM_API_KEY", ""),
     OBSIDIAN_VAULT_PATH=os.getenv("OBSIDIAN_VAULT_PATH", ""),
-    MAIN_PROMT=MAIN_PROMT,
+    MAIN_PROMT=MAIN_PROMT
 )
 
 
@@ -23,7 +23,7 @@ def generate_cheatsheet(topic: str) -> str:
             api_key=config.LLM_API_KEY,
         )
         response = client.chat.completions.create(
-            model="deepseek/deepseek-chat:free",
+            model=config.LLM_MODEL,
             messages=[
                 {"role": "system", "content": config.MAIN_PROMT},
                 {
@@ -76,8 +76,8 @@ def main() -> None:
 
     except KeyboardInterrupt:
         print("\n👋 Пока! <3")
-    except Exception as e:
-        print(f"❌ Ошибка: {str(e)}")
+    except Exception as err:
+        print(f"❌ Ошибка: {str(err)}")
         sys.exit(1)
 
 
