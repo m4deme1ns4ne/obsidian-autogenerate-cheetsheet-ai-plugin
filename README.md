@@ -24,9 +24,17 @@
    source .venv/bin/activate
    pip install -r requirements.txt
    ```
+3. Создайте .env файл в корне проекта:
+``` python
+# Путь до папки AI CHEATSHEET
+OBSIDIAN_VAULT_PATH=.../NAME_YOUR_OBSIDIAN_VALUT/AI CHEATSHEET
 
-3. Создайте директорию в вашем Obsidian хранилище под названием "AI CHEATSHEET"
-4. Перейдите в Найстройки -> Сочетание клавиш -> Cheatsheet Generator: Generate Cheatsheet и назначьте сочетание клавиш.
+# LLM API TOKEN. Нужно использовать https://openrouter.ai/
+LLM_API_KEY=
+```
+
+4. Создайте директорию в вашем Obsidian хранилище под названием "AI CHEATSHEET"
+5. Перейдите в Найстройки -> Сочетание клавиш -> Cheatsheet Generator: Generate Cheatsheet и назначьте сочетание клавиш.
 
 ## Использование
 
